@@ -8,7 +8,7 @@ interface CityGridProps {
 export default function CityGrid({ cities }: CityGridProps) {
   if (cities.length === 0) {
     return (
-      <div className="flex flex-col items-center justify-center py-24 text-slate-400">
+      <div className="flex flex-col items-center justify-center py-24 text-slate-500">
         <p className="text-4xl mb-3">🔍</p>
         <p className="text-lg font-medium">조건에 맞는 도시가 없어요</p>
         <p className="text-sm mt-1">필터 조건을 조정해보세요</p>

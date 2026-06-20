@@ -44,7 +44,7 @@ export default function FilterSheet({ filters, onChange, onReset }: FilterSheetP
           <SlidersHorizontal className="size-4" />
           필터
           {(filters.regions.length > 0 || filters.requireCoworking || filters.minInternet > 0) && (
-            <span className="size-4 rounded-full bg-amber-400 text-white text-[10px] font-bold flex items-center justify-center">
+            <span className="size-4 rounded-full bg-cyan-400 text-[#0a0a0f] text-[10px] font-bold flex items-center justify-center shadow-[0_0_10px_rgba(0,229,255,0.7)]">
               !
             </span>
           )}
@@ -62,7 +62,7 @@ export default function FilterSheet({ filters, onChange, onReset }: FilterSheetP
 
         <div className="space-y-5">
           <div className="space-y-2">
-            <p className="text-xs font-semibold text-slate-600 uppercase tracking-wide">지역</p>
+            <p className="text-xs font-semibold text-fuchsia-400 uppercase tracking-widest">지역</p>
             <div className="space-y-2">
               {REGIONS.map((region) => (
                 <div key={region} className="flex items-center gap-2">
@@ -82,7 +82,7 @@ export default function FilterSheet({ filters, onChange, onReset }: FilterSheetP
           <Separator />
 
           <div className="space-y-3">
-            <p className="text-xs font-semibold text-slate-600 uppercase tracking-wide">월 생활비</p>
+            <p className="text-xs font-semibold text-fuchsia-400 uppercase tracking-widest">월 생활비</p>
             <Slider
               min={0}
               max={500}
@@ -92,7 +92,7 @@ export default function FilterSheet({ filters, onChange, onReset }: FilterSheetP
                 onChange({ ...filters, costMin: min, costMax: max })
               }
             />
-            <div className="flex justify-between text-xs text-slate-500 tabular-nums">
+            <div className="flex justify-between text-xs text-slate-400 tabular-nums">
               <span>{filters.costMin}만원</span>
               <span>{filters.costMax}만원</span>
             </div>
@@ -101,7 +101,7 @@ export default function FilterSheet({ filters, onChange, onReset }: FilterSheetP
           <Separator />
 
           <div className="space-y-2">
-            <p className="text-xs font-semibold text-slate-600 uppercase tracking-wide">최소 인터넷</p>
+            <p className="text-xs font-semibold text-fuchsia-400 uppercase tracking-widest">최소 인터넷</p>
             <RadioGroup
               value={String(filters.minInternet)}
               onValueChange={(v) =>
@@ -141,7 +141,7 @@ export default function FilterSheet({ filters, onChange, onReset }: FilterSheetP
           <Separator />
 
           <div className="space-y-2">
-            <p className="text-xs font-semibold text-slate-600 uppercase tracking-wide">정렬</p>
+            <p className="text-xs font-semibold text-fuchsia-400 uppercase tracking-widest">정렬</p>
             <RadioGroup
               value={filters.sortBy}
               onValueChange={(v) =>
@@ -167,7 +167,7 @@ export default function FilterSheet({ filters, onChange, onReset }: FilterSheetP
             </RadioGroup>
           </div>
 
-          <Button className="w-full bg-[#1E2A5E]" onClick={() => setOpen(false)}>
+          <Button className="w-full bg-cyan-500 hover:bg-cyan-400 text-[#0a0a0f] font-semibold shadow-[0_0_15px_rgba(0,229,255,0.45)]" onClick={() => setOpen(false)}>
             필터 적용
           </Button>
         </div>

@@ -21,7 +21,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ko" className={`${notoSansKR.variable} h-full`}>
-      <body className="min-h-full bg-slate-50 text-slate-900 antialiased">
+      <body className="min-h-full bg-[#0a0a0f] text-slate-100 antialiased">
         {children}
       </body>
     </html>

@@ -45,10 +45,10 @@ export default function FilterPanel() {
   return (
     <div className="flex gap-6">
       <aside className="hidden lg:block w-56 shrink-0">
-        <div className="bg-white rounded-xl border border-slate-200 p-4 space-y-5 sticky top-20">
+        <div className="bg-[#12121a] rounded-xl border border-cyan-400/20 shadow-[0_0_20px_rgba(0,229,255,0.08)] p-4 space-y-5 sticky top-20">
           <div className="flex items-center justify-between">
-            <h2 className="font-semibold text-slate-800 text-sm">필터</h2>
-            <Button variant="ghost" size="sm" className="text-xs h-7 px-2 text-slate-500" onClick={reset}>
+            <h2 className="font-semibold text-cyan-300 text-sm">필터</h2>
+            <Button variant="ghost" size="sm" className="text-xs h-7 px-2 text-slate-400 hover:text-cyan-300 hover:bg-cyan-400/10" onClick={reset}>
               초기화
             </Button>
           </div>
@@ -56,7 +56,7 @@ export default function FilterPanel() {
           <Separator />
 
           <div className="space-y-2">
-            <p className="text-xs font-semibold text-slate-600 uppercase tracking-wide">지역</p>
+            <p className="text-xs font-semibold text-fuchsia-400 uppercase tracking-widest">지역</p>
             <div className="space-y-1.5">
               {REGIONS.map((region) => (
                 <div key={region} className="flex items-center gap-2">
@@ -76,7 +76,7 @@ export default function FilterPanel() {
           <Separator />
 
           <div className="space-y-3">
-            <p className="text-xs font-semibold text-slate-600 uppercase tracking-wide">월 생활비</p>
+            <p className="text-xs font-semibold text-fuchsia-400 uppercase tracking-widest">월 생활비</p>
             <Slider
               min={0}
               max={500}
@@ -87,7 +87,7 @@ export default function FilterPanel() {
               }
               className="mt-2"
             />
-            <div className="flex justify-between text-xs text-slate-500 tabular-nums">
+            <div className="flex justify-between text-xs text-slate-400 tabular-nums">
               <span>{filters.costMin}만원</span>
               <span>{filters.costMax}만원</span>
             </div>
@@ -96,7 +96,7 @@ export default function FilterPanel() {
           <Separator />
 
           <div className="space-y-2">
-            <p className="text-xs font-semibold text-slate-600 uppercase tracking-wide">최소 인터넷</p>
+            <p className="text-xs font-semibold text-fuchsia-400 uppercase tracking-widest">최소 인터넷</p>
             <RadioGroup
               value={String(filters.minInternet)}
               onValueChange={(v) =>
@@ -136,7 +136,7 @@ export default function FilterPanel() {
           <Separator />
 
           <div className="space-y-2">
-            <p className="text-xs font-semibold text-slate-600 uppercase tracking-wide">정렬</p>
+            <p className="text-xs font-semibold text-fuchsia-400 uppercase tracking-widest">정렬</p>
             <RadioGroup
               value={filters.sortBy}
               onValueChange={(v) =>
@@ -166,8 +166,8 @@ export default function FilterPanel() {
 
       <div className="flex-1 min-w-0">
         <div className="flex items-center justify-between mb-4">
-          <p className="text-sm text-slate-500">
-            <span className="font-semibold text-slate-800">{filteredCities.length}개</span> 도시
+          <p className="text-sm text-slate-400">
+            <span className="font-semibold text-cyan-300">{filteredCities.length}개</span> 도시
           </p>
           <FilterSheet
             filters={filters}

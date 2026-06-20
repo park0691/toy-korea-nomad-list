@@ -62,8 +62,8 @@ export default function ReviewDialog({ cityName }: ReviewDialogProps) {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button size="sm" className="bg-amber-500 hover:bg-amber-600 text-white gap-1.5">
-          <Star className="size-3.5 fill-white" />
+        <Button size="sm" className="bg-fuchsia-500 hover:bg-fuchsia-400 text-[#0a0a0f] font-semibold gap-1.5 shadow-[0_0_15px_rgba(255,43,214,0.5)] hover:shadow-[0_0_22px_rgba(255,43,214,0.7)]">
+          <Star className="size-3.5 fill-current" />
           {cityName} 평가하기
         </Button>
       </DialogTrigger>
@@ -74,7 +74,7 @@ export default function ReviewDialog({ cityName }: ReviewDialogProps) {
 
         <div className="space-y-5 pt-2">
           <div className="space-y-2">
-            <p className="text-sm font-semibold text-slate-700">체류 기간</p>
+            <p className="text-sm font-semibold text-slate-200">체류 기간</p>
             <RadioGroup value={stayDuration} onValueChange={setStayDuration} className="space-y-1.5">
               {[
                 { value: 'lt1', label: '1개월 미만' },
@@ -94,7 +94,7 @@ export default function ReviewDialog({ cityName }: ReviewDialogProps) {
           <Separator />
 
           <div className="space-y-2">
-            <p className="text-sm font-semibold text-slate-700">방문 목적</p>
+            <p className="text-sm font-semibold text-slate-200">방문 목적</p>
             <div className="grid grid-cols-2 gap-2">
               {PURPOSE_OPTIONS.map((opt) => (
                 <div key={opt.value} className="flex items-center gap-2">
@@ -114,7 +114,7 @@ export default function ReviewDialog({ cityName }: ReviewDialogProps) {
           <Separator />
 
           <div className="space-y-2">
-            <p className="text-sm font-semibold text-slate-700">종합 만족도</p>
+            <p className="text-sm font-semibold text-slate-200">종합 만족도</p>
             <div className="flex gap-1">
               {[1, 2, 3, 4, 5].map((star) => (
                 <button
@@ -128,8 +128,8 @@ export default function ReviewDialog({ cityName }: ReviewDialogProps) {
                   <Star
                     className={`size-7 transition-colors ${
                       star <= (hoverRating || overallRating)
-                        ? 'fill-amber-400 text-amber-400'
-                        : 'text-slate-200'
+                        ? 'fill-fuchsia-400 text-fuchsia-400 drop-shadow-[0_0_8px_rgba(255,43,214,0.7)]'
+                        : 'text-slate-600'
                     }`}
                   />
                 </button>
@@ -140,11 +140,11 @@ export default function ReviewDialog({ cityName }: ReviewDialogProps) {
           <Separator />
 
           <div className="space-y-3">
-            <p className="text-sm font-semibold text-slate-700">항목별 점수</p>
+            <p className="text-sm font-semibold text-slate-200">항목별 점수</p>
             <div className="space-y-2">
               {SCORE_ITEMS.map((item) => (
                 <div key={item.key} className="flex items-center gap-3">
-                  <span className="text-sm text-slate-600 w-28 shrink-0">{item.label}</span>
+                  <span className="text-sm text-slate-300 w-28 shrink-0">{item.label}</span>
                   <div className="flex gap-1">
                     {[1, 2, 3, 4, 5].map((score) => (
                       <button
@@ -153,8 +153,8 @@ export default function ReviewDialog({ cityName }: ReviewDialogProps) {
                         onClick={() => setItemScore(item.key, score)}
                         className={`size-7 rounded-full text-xs font-semibold border transition-colors ${
                           itemScores[item.key] === score
-                            ? 'bg-amber-400 border-amber-400 text-white'
-                            : 'border-slate-200 text-slate-400 hover:border-amber-300'
+                            ? 'bg-cyan-400 border-cyan-400 text-[#0a0a0f] shadow-[0_0_12px_rgba(0,229,255,0.6)]'
+                            : 'border-white/15 text-slate-400 hover:border-cyan-400/60 hover:text-cyan-300'
                         }`}
                       >
                         {score}
@@ -169,7 +169,7 @@ export default function ReviewDialog({ cityName }: ReviewDialogProps) {
           <Separator />
 
           <div className="space-y-2">
-            <Label htmlFor="comment" className="text-sm font-semibold text-slate-700">
+            <Label htmlFor="comment" className="text-sm font-semibold text-slate-200">
               한 줄 후기 <span className="font-normal text-slate-400">(선택)</span>
             </Label>
             <Textarea
@@ -191,7 +191,7 @@ export default function ReviewDialog({ cityName }: ReviewDialogProps) {
               취소
             </Button>
             <Button
-              className="flex-1 bg-[#1E2A5E] hover:bg-[#162048]"
+              className="flex-1 bg-cyan-500 hover:bg-cyan-400 text-[#0a0a0f] font-semibold shadow-[0_0_15px_rgba(0,229,255,0.45)] disabled:shadow-none"
               disabled={!stayDuration || overallRating === 0}
               onClick={handleClose}
             >
