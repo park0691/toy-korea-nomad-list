@@ -38,7 +38,7 @@ export default function LikeDislike({ initialLikes, initialDislikes }: LikeDisli
   }
 
   return (
-    <div className="flex gap-2">
+    <div className="flex justify-between">
       <button
         onClick={handleLike}
         className={`flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-full border transition-all ${
@@ -58,8 +58,8 @@ export default function LikeDislike({ initialLikes, initialDislikes }: LikeDisli
             : 'border-white/15 bg-white/5 text-slate-400 hover:border-fuchsia-400/50 hover:text-fuchsia-400'
         }`}
       >
-        <ThumbsDown className={`size-3.5 ${vote === 'dislike' ? 'fill-fuchsia-400' : ''}`} />
         <span className="tabular-nums">{dislikes}</span>
+        <ThumbsDown className={`size-3.5 ${vote === 'dislike' ? 'fill-fuchsia-400' : ''}`} />
       </button>
     </div>
   )
