@@ -98,3 +98,7 @@ export const cities: City[] = [
     imageAlt: '광주 국립아시아문화전당',
   },
 ]
+
+export function getCityById(id: string): City | undefined {
+  return cities.find((city) => city.id === id)
+}
