@@ -1,39 +1,27 @@
-export type BadgeType = '인기' | '자연' | '가성비' | '문화' | '교통'
+export type BudgetType = '100만원' | '100~200만원' | '200만원'
 
-export type RegionType = '수도권' | '강원' | '충청' | '영남' | '호남' | '제주'
+export type RegionType = '수도권' | '경상도' | '전라도' | '강원도' | '제주도' | '충청도'
 
-export interface CityScores {
-  overall: number
-  internet: number
-  cost: number
-  safety: number
-  cafe: number
-  transport: number
-  worklife: number
-}
+export type EnvironmentType = '자연친화' | '도심선호' | '카페작업' | '코워킹 필수'
+
+export type SeasonType = '봄' | '여름' | '가을' | '겨울'
 
 export interface City {
   id: string
   name: string
   region: RegionType
-  rank: number
-  badges: BadgeType[]
-  scores: CityScores
-  monthlyCostMin: number
-  monthlyCostMax: number
-  coworkingCount: number
-  cafeCount: number
-  actualMbps: number
-  reviewCount: number
+  budget: BudgetType
+  environments: EnvironmentType[]
+  bestSeason: SeasonType
+  likes: number
+  dislikes: number
   tags: string[]
   imageAlt: string
 }
 
 export interface FilterState {
+  budgets: BudgetType[]
   regions: RegionType[]
-  costMin: number
-  costMax: number
-  minInternet: 0 | 100 | 500 | 1000
-  requireCoworking: boolean
-  sortBy: 'overall' | 'cost' | 'internet' | 'latest'
+  environments: EnvironmentType[]
+  seasons: SeasonType[]
 }

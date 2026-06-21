@@ -1,42 +1,25 @@
 'use client'
 
 import { useState } from 'react'
-import { Checkbox } from '@/components/ui/checkbox'
-import { Label } from '@/components/ui/label'
-import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
-import { Slider } from '@/components/ui/slider'
 import { Button } from '@/components/ui/button'
-import { Separator } from '@/components/ui/separator'
 import { cities as allCities } from '@/data/cities'
 import { filterCities } from '@/lib/filterCities'
 import CityGrid from '@/components/city/CityGrid'
+import FilterControls from './FilterControls'
 import FilterSheet from './FilterSheet'
-import type { FilterState, RegionType } from '@/types/city'
-
-const REGIONS: RegionType[] = ['수도권', '강원', '충청', '영남', '호남', '제주']
+import type { FilterState } from '@/types/city'
 
 const DEFAULT_FILTERS: FilterState = {
+  budgets: [],
   regions: [],
-  costMin: 0,
-  costMax: 500,
-  minInternet: 0,
-  requireCoworking: false,
-  sortBy: 'overall',
+  environments: [],
+  seasons: [],
 }
 
 export default function FilterPanel() {
   const [filters, setFilters] = useState<FilterState>(DEFAULT_FILTERS)
 
   const filteredCities = filterCities(allCities, filters)
-
-  function toggleRegion(region: RegionType) {
-    setFilters((prev) => ({
-      ...prev,
-      regions: prev.regions.includes(region)
-        ? prev.regions.filter((r) => r !== region)
-        : [...prev.regions, region],
-    }))
-  }
 
   function reset() {
     setFilters(DEFAULT_FILTERS)
@@ -48,132 +31,27 @@ export default function FilterPanel() {
         <div className="bg-[#12121a] rounded-xl border border-cyan-400/20 shadow-[0_0_20px_rgba(0,229,255,0.08)] p-4 space-y-5 sticky top-20">
           <div className="flex items-center justify-between">
             <h2 className="font-semibold text-cyan-300 text-sm">필터</h2>
-            <Button variant="ghost" size="sm" className="text-xs h-7 px-2 text-slate-400 hover:text-cyan-300 hover:bg-cyan-400/10" onClick={reset}>
+            <Button
+              variant="ghost"
+              size="sm"
+              className="text-xs h-7 px-2 text-slate-400 hover:text-cyan-300 hover:bg-cyan-400/10"
+              onClick={reset}
+            >
               초기화
             </Button>
           </div>
 
-          <Separator />
-
-          <div className="space-y-2">
-            <p className="text-xs font-semibold text-fuchsia-400 uppercase tracking-widest">지역</p>
-            <div className="space-y-1.5">
-              {REGIONS.map((region) => (
-                <div key={region} className="flex items-center gap-2">
-                  <Checkbox
-                    id={`region-${region}`}
-                    checked={filters.regions.includes(region)}
-                    onCheckedChange={() => toggleRegion(region)}
-                  />
-                  <Label htmlFor={`region-${region}`} className="text-sm cursor-pointer">
-                    {region}
-                  </Label>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          <Separator />
-
-          <div className="space-y-3">
-            <p className="text-xs font-semibold text-fuchsia-400 uppercase tracking-widest">월 생활비</p>
-            <Slider
-              min={0}
-              max={500}
-              step={10}
-              value={[filters.costMin, filters.costMax]}
-              onValueChange={([min, max]) =>
-                setFilters((prev) => ({ ...prev, costMin: min, costMax: max }))
-              }
-              className="mt-2"
-            />
-            <div className="flex justify-between text-xs text-slate-400 tabular-nums">
-              <span>{filters.costMin}만원</span>
-              <span>{filters.costMax}만원</span>
-            </div>
-          </div>
-
-          <Separator />
-
-          <div className="space-y-2">
-            <p className="text-xs font-semibold text-fuchsia-400 uppercase tracking-widest">최소 인터넷</p>
-            <RadioGroup
-              value={String(filters.minInternet)}
-              onValueChange={(v) =>
-                setFilters((prev) => ({
-                  ...prev,
-                  minInternet: Number(v) as FilterState['minInternet'],
-                }))
-              }
-              className="space-y-1.5"
-            >
-              {([0, 100, 500, 1000] as const).map((speed) => (
-                <div key={speed} className="flex items-center gap-2">
-                  <RadioGroupItem value={String(speed)} id={`speed-${speed}`} />
-                  <Label htmlFor={`speed-${speed}`} className="text-sm cursor-pointer">
-                    {speed === 0 ? '상관없음' : `${speed}Mbps 이상`}
-                  </Label>
-                </div>
-              ))}
-            </RadioGroup>
-          </div>
-
-          <Separator />
-
-          <div className="flex items-center gap-2">
-            <Checkbox
-              id="coworking"
-              checked={filters.requireCoworking}
-              onCheckedChange={(checked) =>
-                setFilters((prev) => ({ ...prev, requireCoworking: !!checked }))
-              }
-            />
-            <Label htmlFor="coworking" className="text-sm cursor-pointer">
-              코워킹스페이스 있음
-            </Label>
-          </div>
-
-          <Separator />
-
-          <div className="space-y-2">
-            <p className="text-xs font-semibold text-fuchsia-400 uppercase tracking-widest">정렬</p>
-            <RadioGroup
-              value={filters.sortBy}
-              onValueChange={(v) =>
-                setFilters((prev) => ({ ...prev, sortBy: v as FilterState['sortBy'] }))
-              }
-              className="space-y-1.5"
-            >
-              {(
-                [
-                  { value: 'overall', label: '종합점수순' },
-                  { value: 'cost', label: '생활비 낮은순' },
-                  { value: 'internet', label: '인터넷 빠른순' },
-                  { value: 'latest', label: '최신 평가순' },
-                ] as const
-              ).map((opt) => (
-                <div key={opt.value} className="flex items-center gap-2">
-                  <RadioGroupItem value={opt.value} id={`sort-${opt.value}`} />
-                  <Label htmlFor={`sort-${opt.value}`} className="text-sm cursor-pointer">
-                    {opt.label}
-                  </Label>
-                </div>
-              ))}
-            </RadioGroup>
-          </div>
+          <FilterControls filters={filters} onChange={setFilters} idPrefix="panel-" />
         </div>
       </aside>
 
       <div className="flex-1 min-w-0">
+        <h2 className="text-lg font-bold text-slate-100 mb-3">도시 리스트</h2>
         <div className="flex items-center justify-between mb-4">
           <p className="text-sm text-slate-400">
             <span className="font-semibold text-cyan-300">{filteredCities.length}개</span> 도시
           </p>
-          <FilterSheet
-            filters={filters}
-            onChange={setFilters}
-            onReset={reset}
-          />
+          <FilterSheet filters={filters} onChange={setFilters} onReset={reset} />
         </div>
         <CityGrid cities={filteredCities} />
       </div>

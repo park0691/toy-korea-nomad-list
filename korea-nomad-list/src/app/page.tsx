@@ -1,6 +1,5 @@
 import Header from '@/components/layout/Header'
 import FilterPanel from '@/components/filter/FilterPanel'
-import ReviewDialog from '@/components/review/ReviewDialog'
 
 export default function HomePage() {
   return (
@@ -20,7 +19,7 @@ export default function HomePage() {
             서울·부산·제주 등 주요 도시의 인터넷 속도, 생활비, 카페 밀도를 한 눈에 비교하세요.
           </p>
           <div className="mt-6 flex flex-wrap justify-center gap-2 text-sm">
-            {['서울', '부산', '제주', '인천', '대전', '대구', '광주'].map((city) => (
+            {['서울', '부산', '제주', '강릉', '인천', '대전', '대구', '광주'].map((city) => (
               <span
                 key={city}
                 className="bg-cyan-400/5 border border-cyan-400/40 text-cyan-200 hover:bg-cyan-400/15 hover:border-cyan-400/70 hover:shadow-[0_0_15px_rgba(0,229,255,0.4)] cursor-pointer px-3 py-1 rounded-full transition-all"
@@ -28,29 +27,6 @@ export default function HomePage() {
                 {city}
               </span>
             ))}
-          </div>
-        </div>
-      </div>
-
-      <div className="bg-[#12121a] border-b border-fuchsia-500/20">
-        <div className="max-w-7xl mx-auto px-4 py-3 flex items-center gap-3 flex-wrap">
-          <span className="text-xs font-semibold text-fuchsia-400 uppercase tracking-widest">빠른 정렬</span>
-          {[
-            { label: '📶 인터넷 빠른순', value: 'internet' },
-            { label: '💰 생활비 낮은순', value: 'cost' },
-            { label: '⭐ 종합 점수순', value: 'overall' },
-            { label: '🕒 최신 평가순', value: 'latest' },
-          ].map((opt) => (
-            <button
-              key={opt.value}
-              className="text-xs px-3 py-1.5 rounded-full border border-cyan-400/30 bg-cyan-400/5 text-slate-300 hover:bg-cyan-400/15 hover:border-cyan-400/70 hover:text-cyan-200 hover:shadow-[0_0_15px_rgba(0,229,255,0.35)] transition-all"
-            >
-              {opt.label}
-            </button>
-          ))}
-
-          <div className="ml-auto">
-            <ReviewDialog cityName="도시" />
           </div>
         </div>
       </div>
