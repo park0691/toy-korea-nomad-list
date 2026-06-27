@@ -1,5 +1,6 @@
 import { render, screen } from '@testing-library/react'
 import CityDetail from '@/components/city/CityDetail'
+import type { City } from '@/types/city'
 
 jest.mock('next/link', () => {
   return function MockLink({ children, href }: { children: React.ReactNode; href: string }) {
@@ -36,7 +37,8 @@ const mockCity = {
   dislikes: 10,
   tags: ['#테스트태그1', '#테스트태그2'],
   imageAlt: '테스트시티 전경 이미지',
-}
+  // 렌더링 검증용 fixture — enum이 아닌 임의 표시 문자열을 의도적으로 사용
+} as unknown as City
 
 describe('CityDetail', () => {
   it('renders city name', () => {

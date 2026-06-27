@@ -1,4 +1,4 @@
-import LikeDislike from './LikeDislike'
+import { ThumbsUp, ThumbsDown } from 'lucide-react'
 import type { City } from '@/types/city'
 
 interface CityCardBasicProps {
@@ -44,8 +44,16 @@ export default function CityCardBasic({ city }: CityCardBasicProps) {
         </div>
       </div>
 
-      <div className="border-t border-white/10 pt-3">
-        <LikeDislike initialLikes={city.likes} initialDislikes={city.dislikes} />
+      {/* 카드 전체가 상세 페이지로 이동하는 Link이므로, 카운트는 읽기 전용 표시만 한다 (투표는 상세 페이지에서) */}
+      <div className="border-t border-white/10 pt-3 flex justify-between">
+        <span className="flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-full border border-white/15 bg-white/5 text-slate-400">
+          <ThumbsUp className="size-3.5" />
+          <span className="tabular-nums">{city.likes}</span>
+        </span>
+        <span className="flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-full border border-white/15 bg-white/5 text-slate-400">
+          <span className="tabular-nums">{city.dislikes}</span>
+          <ThumbsDown className="size-3.5" />
+        </span>
       </div>
     </div>
   )

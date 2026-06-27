@@ -4,9 +4,11 @@ import type { City } from '@/types/city'
 
 interface CityDetailProps {
   city: City
+  userVote?: 'like' | 'dislike' | null
+  isAuthenticated?: boolean
 }
 
-export default function CityDetail({ city }: CityDetailProps) {
+export default function CityDetail({ city, userVote = null, isAuthenticated = false }: CityDetailProps) {
   return (
     <main className="min-h-screen bg-[#0a0a0f] text-slate-100">
       <div className="max-w-2xl mx-auto px-4 py-8">
@@ -69,7 +71,13 @@ export default function CityDetail({ city }: CityDetailProps) {
         </div>
 
         <div className="border-t border-white/10 pt-5">
-          <LikeDislike initialLikes={city.likes} initialDislikes={city.dislikes} />
+          <LikeDislike
+            cityId={city.id}
+            initialLikes={city.likes}
+            initialDislikes={city.dislikes}
+            initialVote={userVote}
+            isAuthenticated={isAuthenticated}
+          />
         </div>
       </div>
     </main>
