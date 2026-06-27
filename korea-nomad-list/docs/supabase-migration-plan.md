@@ -75,13 +75,17 @@
 
 - 두 테이블 모두 `ENABLE ROW LEVEL SECURITY`
 - `get_advisors(security)`로 RLS 누락·정책 점검
+- ⚠️ **RLS 정책만으로는 접근 불가** — Supabase의 테이블 접근은 ① 롤의 테이블 레벨 `GRANT`(접근 가능 여부) → ② RLS 정책(접근 가능한 행) 2단계다. `apply_migration`으로 raw SQL 생성한 테이블은 `anon`/`authenticated` GRANT가 자동 부여되지 않으므로 별도 `GRANT`가 필요하다 (→ `0007`).
 
-## 5. 마이그레이션 순서
+## 5. 마이그레이션 순서 (실제 적용)
 
 1. **`0001_enums_and_cities`** — enum 4종 + `cities` 테이블 + RLS(공개 읽기)
 2. **`0002_votes`** — `vote_kind` enum + `votes` 테이블 + UNIQUE + RLS(본인 쓰기)
-3. **`0003_vote_count_trigger`** — 카운트 재집계 트리거 함수 & 트리거
-4. **`0004_seed_cities`** — 도시 9건 INSERT (likes/dislikes 초기값 포함)
+3. **`0003_vote_count_trigger`** — 카운트 동기화 트리거 함수 & 트리거
+4. **`0004_vote_count_delta`** — 시드 기준값 보존을 위해 트리거를 절대 재집계 → 증분(delta) 방식으로 교체
+5. **`0005_seed_cities`** — 도시 8건 INSERT (likes/dislikes 초기값 포함)
+6. **`0006_revoke_function_execute`** — 트리거 전용 함수의 외부 REST RPC 노출 차단 (security advisor 경고 해소)
+7. **`0007_grant_table_privileges`** — 테이블 레벨 권한 부여: `cities` SELECT(anon/authenticated), `votes` SELECT(anon/authenticated) + INSERT/UPDATE/DELETE(authenticated). RLS 정책만 있고 GRANT 누락 시 발생하던 `42501 permission denied for table cities` 해결
 
 > 적용 방식: MCP 쓰기 모드 전환 후 `apply_migration`으로 순차 적용.
 
