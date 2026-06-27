@@ -35,6 +35,22 @@ jest.mock('@/data/cities', () => {
   }
 })
 
+// CityPage 본문은 Supabase 라이브 데이터(getCityWithUserVote)를 사용
+jest.mock('@/lib/cities', () => {
+  const rows: Record<string, { id: string; name: string }> = {
+    seoul: { id: 'seoul', name: '서울' },
+    jeju: { id: 'jeju', name: '제주' },
+    busan: { id: 'busan', name: '부산' },
+  }
+  return {
+    getCityWithUserVote: async (id: string) => ({
+      city: rows[id] ?? null,
+      userVote: null,
+      isAuthenticated: false,
+    }),
+  }
+})
+
 // ---------- helpers ----------
 
 function makeParams(id: string): Promise<{ id: string }> {

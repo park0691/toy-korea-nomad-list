@@ -2,12 +2,11 @@
 
 import { useState } from 'react'
 import { Button } from '@/components/ui/button'
-import { cities as allCities } from '@/data/cities'
 import { filterCities } from '@/lib/filterCities'
 import CityGrid from '@/components/city/CityGrid'
 import FilterControls from './FilterControls'
 import FilterSheet from './FilterSheet'
-import type { FilterState } from '@/types/city'
+import type { City, FilterState } from '@/types/city'
 
 const DEFAULT_FILTERS: FilterState = {
   budgets: [],
@@ -16,10 +15,14 @@ const DEFAULT_FILTERS: FilterState = {
   seasons: [],
 }
 
-export default function FilterPanel() {
+interface FilterPanelProps {
+  cities: City[]
+}
+
+export default function FilterPanel({ cities }: FilterPanelProps) {
   const [filters, setFilters] = useState<FilterState>(DEFAULT_FILTERS)
 
-  const filteredCities = filterCities(allCities, filters)
+  const filteredCities = filterCities(cities, filters)
 
   function reset() {
     setFilters(DEFAULT_FILTERS)

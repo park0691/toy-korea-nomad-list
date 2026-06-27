@@ -1,7 +1,10 @@
 import Header from '@/components/layout/Header'
 import FilterPanel from '@/components/filter/FilterPanel'
+import { getCities } from '@/lib/cities'
 
-export default function HomePage() {
+export default async function HomePage() {
+  const cities = await getCities()
+
   return (
     <div className="min-h-screen flex flex-col">
       <Header />
@@ -32,7 +35,7 @@ export default function HomePage() {
       </div>
 
       <main className="flex-1 max-w-7xl mx-auto px-4 py-6 w-full">
-        <FilterPanel />
+        <FilterPanel cities={cities} />
       </main>
 
       <footer className="bg-[#0a0a0f] border-t border-cyan-400/20 text-slate-500 text-xs py-6 mt-8">
